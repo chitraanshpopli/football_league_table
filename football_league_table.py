@@ -1,9 +1,9 @@
+#Fetches and displays La Liga table from https://www.bbc.com
+
 import requests
 import pandas as pd
 
 URL = 'https://www.bbc.com/sport/football/spanish-la-liga/table'
-
-
 
 def set_dataframe_options():
 	#Options for dataframe display.
@@ -50,4 +50,5 @@ def main():
 
 	print(df)
 	print(last_updated)
+	qv = input('Press enter to exit.')
 main()
