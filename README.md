@@ -3,7 +3,7 @@
 Fetches and displays table of 5 major European football leagues from https://www.bbc.com.
 
 ## Packages used:
-requests, pandas
+sys, requests, pandas
 
 ## Leagues:
 1. LaLiga (Spain)
@@ -11,3 +11,6 @@ requests, pandas
 3. Bundesliga (Germany)
 4. SerieA (Italy)
 5. Ligue1 (France)
+
+## Command line arguments
+Table of the league can also be fetched directly via command line argument. Just give the name of the league as second argument (after the script name). The name should be exactly as written in Leagues section above, without the number and country.
