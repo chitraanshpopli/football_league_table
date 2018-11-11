@@ -1,5 +1,3 @@
-#global URLs
-
 #Fetches and displays La Liga table from https://www.bbc.com
 
 import requests
