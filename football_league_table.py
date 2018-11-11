@@ -26,6 +26,9 @@ def set_number_of_teams(league_URL):
 		rows -= 2	#Bundesliga has 18 teams. Other leagues have 20.
 	
 def get_URL():
+	#Retrieves and returns URL of the required league.
+	#URL can be retrieved either via command line argument or
+	#by entering the serial number of league.
 	
 	if len(sys.argv) == 2:
 		try:
