@@ -1,4 +1,4 @@
-#Fetches and displays La Liga table from https://www.bbc.com
+#Fetches and displays table of 5 major European football leagues from https://www.bbc.com.
 
 import requests
 import pandas as pd
