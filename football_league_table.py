@@ -1,5 +1,6 @@
 #Fetches and displays table of 5 major European football leagues from https://www.bbc.com.
 
+import sys
 import requests
 import pandas as pd
 
@@ -25,6 +26,16 @@ def set_number_of_teams(league_URL):
 		rows -= 2	#Bundesliga has 18 teams. Other leagues have 20.
 	
 def get_URL():
+	
+	if len(sys.argv) == 2:
+		try:
+			league_URL = URLs[sys.argv[1]]
+			set_number_of_teams(league_URL)
+			print('Loading table for ' + sys.argv[1])
+			return league_URL
+		except KeyError:
+			print('No such league found.')
+	
 	for number, name in league_numbers.items():
 		print(str(number) + '. ' + name)
 	no_league = True
