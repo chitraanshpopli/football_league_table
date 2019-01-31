@@ -1,15 +1,16 @@
-#Fetches and displays table of 5 major European football leagues from https://www.bbc.com.
+"""Fetches and displays table of 5 major European football leagues from https://www.bbc.com."""
 
 import sys
 import requests
 import pandas as pd
+import ftg_graphing as ftgg
 
 league_numbers = {
 1 : 'LaLiga',
 2 : 'EPL',
 3 : 'Bundesliga',
 4 : 'SerieA',
-5 : 'Ligue1'
+5 : 'Ligue1',
 }
 
 URLs = {
@@ -17,8 +18,39 @@ URLs = {
 'EPL' : 'https://www.bbc.com/sport/football/premier-league/table',
 'Bundesliga' : 'https://www.bbc.com/sport/football/german-bundesliga/table',
 'SerieA' : 'https://www.bbc.com/sport/football/italian-serie-a/table',
-'Ligue1' : 'https://www.bbc.com/sport/football/french-ligue-one/table'
+'Ligue1' : 'https://www.bbc.com/sport/football/french-ligue-one/table',
 }
+
+graph_choices = {
+'1' : 'Won',
+'2' : 'Draw',
+'3' : 'Lost',
+'4' : 'Goals For',
+'5' : 'Goals Against',
+'6' : 'Goal Difference',
+'7' : 'Points',
+'13' : ('Won', 'Lost'),
+'45' : ('Goals For', 'Goals Against'),
+'123' : ('Won', 'Draw', 'Lost'),
+'457' : ('Goals For', 'Goals Against', 'Points'),
+}
+
+column_headings = {
+'Won' : 'W',
+'Draw' : 'D',
+'Lost' : 'L',
+'Goal For' : 'F' ,
+'Goals Against' : 'A',
+'Goals Difference' : 'GD',
+'Points' : 'Pts',
+('Won', 'Lost') : ('W', 'L'),
+('Goals For', 'Goals Against') : ('F', 'A'),
+('Won', 'Draw', 'Lost') : ('W', 'D', 'L'),
+('Goals For', 'Goals Against', 'Points') : ('F', 'A', 'Pts'),
+}
+
+
+
 def set_number_of_teams(league_URL):
 	global rows
 	rows = 20	#Defines the total number of rows.
@@ -92,6 +124,25 @@ def clean_position_change(df):
 		elif df.iat[column,1] == "team has moved down":
 			df.iat[column,1] = '-'
 	return df
+	
+def plot_graph(df):
+	for num, choice in graph_choices.items():
+			print(num, '  ', choice)
+
+	graph_choice = input('Choose graph:\t')
+	if graph_choice not in graph_choices:
+		print('Invalid input.')
+	else:
+		my_plot = ftgg.Graph(df)
+		column_heading = column_headings[graph_choices[graph_choice]]
+		graph_label = graph_choices[graph_choice]
+		
+		if int(graph_choice) < 8:
+			my_plot.plot_onebar(column_heading, graph_label)
+		elif int(graph_choice) > 100:
+			my_plot.plot_threebar(column_heading, graph_label)
+		else:
+			my_plot.plot_twobar(column_heading, graph_label)
 
 def main():
 	set_dataframe_options()
@@ -105,6 +156,11 @@ def main():
 
 	print(df)
 	print(last_updated)
+	
+	graph = input("Enter 'y' to plot graph: ")
+	if graph.lower() == 'y':
+		plot_graph(df)
+
 	qv = input('Press enter to exit.')
 main()
 
