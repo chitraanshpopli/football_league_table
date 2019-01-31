@@ -1,9 +1,9 @@
 # football_league_table
 
-Fetches and displays table of 5 major European football leagues from https://www.bbc.com.
+Fetches and displays table of 5 major European football leagues from https://www.bbc.com. Added functionality to create bar charts from the table data.
 
 ## Packages used:
-sys, requests, pandas
+sys, requests, pandas, numpy, matplotlib
 
 ## Leagues:
 1. LaLiga (Spain)
